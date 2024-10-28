@@ -5,3 +5,6 @@ Erstellung eines CNNs zur Erkennung von Hirntumoren und Anwendung von Layer-wise
 
 ## Data set
 https://www.kaggle.com/datasets/preetviradiya/brian-tumor-dataset?resource=download
+
+## source
+https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html
