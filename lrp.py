@@ -1,18 +1,16 @@
-from copy import deepcopy
-
 import torch
 from torch import nn
+from copy import deepcopy
 
+from lrp_layers import RelevancePropagationConv2d, RelevancePropagationLinear, RelevancePropagationReLU, \
+    RelevancePropagationFlatten
 from utils import layers_lookup
 
-
 class LRPModel(nn.Module):
-
     def __init__(self, model: torch.nn.Module, top_k: float = 0.0) -> None:
         super().__init__()
         self.model = model
         self.top_k = top_k
-
         self.model.eval()  # self.model.train() activates dropout / batch normalization etc.!
 
         # Parse network
@@ -29,48 +27,31 @@ class LRPModel(nn.Module):
 
         """
         # Clone layers from original model. This is necessary as we might modify the weights.
-        layers = deepcopy(self.layers)
-        lookup_table = layers_lookup()
+        # Manually map each layer to its corresponding LRP operation
+        lrp_layers = nn.ModuleList()
 
-        # Run backwards through layers
-        for i, layer in enumerate(layers[::-1]):
-            try:
-                layers[i] = lookup_table[layer.__class__](layer=layer, top_k=self.top_k)
-            except KeyError:
-                message = (
-                    f"Layer-wise relevance propagation not implemented for "
-                    f"{layer.__class__.__name__} layer."
-                )
-                raise NotImplementedError(message)
+        # Reverse the layers because LRP works backwards through the network
+        for layer in reversed(self.layers):
+            # Deep copy the layer to avoid modifying the original
+            layer_copy = deepcopy(layer)
 
-        return layers
+            if isinstance(layer, nn.Conv2d):
+                lrp_layer = RelevancePropagationConv2d(layer=layer, top_k=self.top_k)
+            elif isinstance(layer, nn.Linear):
+                lrp_layer = RelevancePropagationLinear(layer=layer, top_k=self.top_k)
+            elif isinstance(layer, nn.ReLU):
+                lrp_layer = RelevancePropagationReLU(layer=layer, top_k=self.top_k)
+            elif isinstance(layer, nn.Flatten):
+                lrp_layer = RelevancePropagationFlatten(layer=layer, top_k=self.top_k)
+            else:
+                raise NotImplementedError(
+                    f"Layer-wise relevance propagation not implemented for {layer.__class__.__name__} layer.")
+            lrp_layers.append(lrp_layer)
 
-
-
+        return lrp_layers
 
     def _get_layer_operations(self) -> torch.nn.ModuleList:
-        '''
         layers = torch.nn.ModuleList()
-
-        # Manually add each layer in the order of forward pass for Net
-        layers.append(self.model.conv1)
-        #      layers.append(self.model.pool)
-        layers.append(self.model.conv2)
-        #      layers.append(self.model.pool)
-
-        # Flatten layer (replaces torch.flatten in forward)
-        layers.append(torch.nn.Flatten(start_dim=1))
-
-        # Add fully connected layers
-        layers.append(self.model.fc1)
-        layers.append(self.model.fc2)
-        layers.append(self.model.fc3)
-
-        return layers
-        '''
-
-        layers = torch.nn.ModuleList()
-
         layers.append(self.model.conv1)
         layers.append(self.model.relu1)
         layers.append(self.model.conv2)
@@ -82,7 +63,6 @@ class LRPModel(nn.Module):
         layers.append(self.model.fc3)
         
         return layers 
-
 
     def forward(self, x: torch.tensor) -> torch.tensor:
         activations = list()
