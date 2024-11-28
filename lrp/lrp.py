@@ -2,9 +2,8 @@ import torch
 from torch import nn
 from copy import deepcopy
 
-from lrp_layers import RelevancePropagationConv2d, RelevancePropagationLinear, RelevancePropagationReLU, \
+from lrp.lrp_layers import RelevancePropagationConv2d, RelevancePropagationLinear, RelevancePropagationReLU, \
     RelevancePropagationFlatten
-from utils import layers_lookup
 
 class LRPModel(nn.Module):
     def __init__(self, model: torch.nn.Module, top_k: float = 0.0) -> None:

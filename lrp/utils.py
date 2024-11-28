@@ -1,5 +1,5 @@
 """Script with helper function."""
-from lrp_layers import *
+from lrp.lrp_layers import *
 
 def layers_lookup() -> dict:
     """Lookup table to map network layer to associated LRP operation.

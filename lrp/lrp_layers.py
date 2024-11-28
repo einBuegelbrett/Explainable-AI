@@ -6,7 +6,7 @@ Layers for layer-wise relevance propagation can be modified.
 import torch
 from torch import nn
 
-from lrp_filter import relevance_filter
+from lrp.lrp_filter import relevance_filter
 
 
 class RelevancePropagationAdaptiveAvgPool2d(nn.Module):
