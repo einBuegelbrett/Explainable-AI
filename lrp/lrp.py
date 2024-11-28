@@ -2,8 +2,7 @@ import torch
 from torch import nn
 from copy import deepcopy
 
-from lrp.lrp_layers import RelevancePropagationConv2d, RelevancePropagationLinear, RelevancePropagationReLU, \
-    RelevancePropagationFlatten
+from lrp.lrp_layers import RelevancePropagationConv2d, RelevancePropagationLinear, RelevancePropagationReLU, RelevancePropagationFlatten
 
 class LRPModel(nn.Module):
     def __init__(self, model: torch.nn.Module, top_k: float = 0.0) -> None:
@@ -19,12 +18,10 @@ class LRPModel(nn.Module):
         self.lrp_layers = self._create_lrp_model()
 
     def _create_lrp_model(self) -> torch.nn.ModuleList:
-        """Method builds the model for layer-wise relevance propagation.
+        '''
+        This method builds the model for layer-wise relevance propagation adapted to our net.
+        '''
 
-        Returns:
-            LRP-model as module list.
-
-        """
         # Clone layers from original model. This is necessary as we might modify the weights.
         # Manually map each layer to its corresponding LRP operation
         lrp_layers = nn.ModuleList()
