@@ -25,7 +25,7 @@ XAI-BrainTumor
 ### Introduction
 Brain tumor is an abnormal growth of cell of brain. [1]\
 The brain tumor is on the right side of the brain, towards the middle and slightly back. There you can see the large, well-defined mass.\
-![brain tumor](images-documentation/cancer_1.jpg "Brain Tumor")
+![brain tumor](images-documentation/brain_tumor_1.jpg "Brain Tumor")
 
 ### Convolutional Neural Networks (CNN)
 Brain tumor detections are using MRI images is a challenging task, because the complex structure of the brain. [1] The goal of this project is to understand, what makes it so hard to detect the tumor for an artificial intelligence, especialy a CNN.
@@ -37,6 +37,15 @@ Convolutional neural networks have been applied to a wide variety of computer vi
 We introduce a methodology that allows to visualize the contributions of single pixels to predictions for kernel-based classifiers over Bag of Words features and for multilayered neural networks. These pixel contributions can be visualized as heatmaps and are provided to a human expert who can intuitively not only verify the validity of the classification decision, but also focus further analysis on regions of potential interest. [3]
 
 One application of layer-wise relevance propagation is the assessment whether the training data is appropriate for a prediction. [4]
+
+![lrp](https://www.hhi.fraunhofer.de/fileadmin/_processed_/b/9/csm_lrp-algorithm_044c31eb4a.png "LRP") [6]
+
+First, a standard forward pass through the model is performed, with which the network predicts. Then, the model's output is backward propagated layer-by-layer, following the neural pathways involved in the final prediction, by applying specific LRP decomposition rules. The result is a heatmap indicating the contribution of individual input features (e.g., of pixels) to the prediction, which can be computed for any hypothetically possible prediction. [6]
+
+![math 1](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*3jtQO-8LKv4q2iw4Iav3wg.png)
+![math 2](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*AbyhNTXpafHE1429KHgI0A.png)
+
+More about the specific implementation of LRP can be found in ``lrp_explained.md`` in the lrp package.
 
 ### Structure
 ```
@@ -73,3 +82,5 @@ The next steps, i.e. building the CNN and running the LRP with analysis and conc
 * [3] [On Pixel-Wise Explanations for Non-Linear Classifier Decisions by Layer-Wise Relevance Propagation](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0130140)
 * [4] [Layer-Wise Relevance Propagation for Deep Neural Network Architectures](https://link.springer.com/chapter/10.1007/978-981-10-0557-2_87)
 * [5] [Magnetic Resonance Imaging (MRI)](https://stanfordhealthcare.org/medical-tests/m/mri.html)
+* [6] [Layer-wise Relevance Propagation](https://www.hhi.fraunhofer.de/en/departments/ai/technologies-and-solutions/layer-wise-relevance-propagation.html)
+* [7] [Overview of Explainable AI and Layer wise relevance propagation (LRP)](https://praveenkumar2909.medium.com/overview-of-explainable-ai-and-layer-wise-relevance-propagation-lrp-cb2d008fec57)
