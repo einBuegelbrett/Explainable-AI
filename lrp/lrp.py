@@ -17,6 +17,20 @@ class LRPModel(nn.Module):
         # Create LRP network
         self.lrp_layers = self._create_lrp_model()
 
+    def _get_layer_operations(self) -> torch.nn.ModuleList:
+        layers = torch.nn.ModuleList()
+        layers.append(self.model.conv1)
+        layers.append(self.model.relu1)
+        layers.append(self.model.conv2)
+        layers.append(self.model.relu2)
+        layers.append(self.model.flatten)
+        layers.append(self.model.fc1)
+        layers.append(self.model.relu3)
+        layers.append(self.model.fc2)
+        layers.append(self.model.fc3)
+
+        return layers
+
     def _create_lrp_model(self) -> torch.nn.ModuleList:
         '''
         This method builds the model for layer-wise relevance propagation adapted to our net.
@@ -45,20 +59,6 @@ class LRPModel(nn.Module):
             lrp_layers.append(lrp_layer)
 
         return lrp_layers
-
-    def _get_layer_operations(self) -> torch.nn.ModuleList:
-        layers = torch.nn.ModuleList()
-        layers.append(self.model.conv1)
-        layers.append(self.model.relu1)
-        layers.append(self.model.conv2)
-        layers.append(self.model.relu2)
-        layers.append(self.model.flatten)
-        layers.append(self.model.fc1)
-        layers.append(self.model.relu3)
-        layers.append(self.model.fc2)
-        layers.append(self.model.fc3)
-        
-        return layers 
 
     def forward(self, x: torch.tensor) -> torch.tensor:
         activations = list()

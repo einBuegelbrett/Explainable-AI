@@ -1,11 +1,11 @@
-# Explainable-AI - Post-Hoc Analyse
+# Explainable-AI - Post-Hoc Analysis
 
 ## Task description
-Creation of a CNN for brain tumour detection and application of Layer-wise Relevance Propagation (LRP) to analyse the relevance of each node for network decision making to find out which patterns helped in detection.
+Creation of a CNN for brain tumor detection and application of Layer-wise Relevance Propagation (LRP) to analyse the relevance of each node for network decision making to find out which patterns helped in detection.
 
 ## Dataset
-The dataset for training and trying can be found on [kaggle](https://www.kaggle.com/datasets/preetviradiya/brian-tumor-dataset?resource=download).
-The dataset needs to be placed in the workng directory like this:
+The dataset for training and testing can be found on [kaggle](https://www.kaggle.com/datasets/preetviradiya/brian-tumor-dataset?resource=download).\
+The dataset must be placed in the working directory as follows:
 ```
 XAI-BrainTumor
 ├── brain-tumor-dataset
@@ -23,48 +23,45 @@ XAI-BrainTumor
 
 ## Project
 ### Introduction
-Brain tumor is an abnormal growth of cell of brain. [1]\
-The brain tumor is on the right side of the brain, towards the middle and slightly back. There you can see the large, well-defined mass.\
-![brain tumor](images-documentation/brain_tumor_1.jpg "Brain Tumor")
+A brain tumor is an abnormal growth of cells in the brain. [1] An example of a brain tumor is shown in the image below on the right side of the brain, toward the center and slightly back. There you can see the large, well-defined mass.
+
+![brain tumor](images-documentation/brain_tumor_1.png "Brain Tumor")
+
+This image was taken with an MRI. A brain MRI is a painless test that produces very clear images of the structures inside your head - mainly your brain. Healthcare providers use brain MRIs to evaluate, diagnose, and monitor several different medical conditions that affect your brain or other structures in your head. [7]
 
 ### Convolutional Neural Networks (CNN)
-Brain tumor detections are using MRI images is a challenging task, because the complex structure of the brain. [1] The goal of this project is to understand, what makes it so hard to detect the tumor for an artificial intelligence, especialy a CNN.
-
-Convolutional neural networks have been applied to a wide variety of computer vision tasks. Recent advances in semantic segmentation have enabled their application to medical image segmentation. [2]
+Detecting brain tumors using MRI images is challenging due to the complex structure of the brain. [1] In this context, convolutional neural networks (CNNs) have proven effective across a wide range of computer vision tasks. Recent advancements in semantic segmentation have further enabled their application to medical image segmentation. [2] The goal of this project is to understand the specific difficulties that artificial intelligence, particularly CNNs, face in tumor detection.
 
 ### Layer-wise Relevance Propagation (LRP)
- Although machine learning methods are solving very successfully a plethora of tasks, they have in most cases the disadvantage of acting as a black box, not providing any information about what made them arrive at a particular decision. [3]
-We introduce a methodology that allows to visualize the contributions of single pixels to predictions for kernel-based classifiers over Bag of Words features and for multilayered neural networks. These pixel contributions can be visualized as heatmaps and are provided to a human expert who can intuitively not only verify the validity of the classification decision, but also focus further analysis on regions of potential interest. [3]
+Although machine learning methods successfully address a wide range of tasks, they often operate as black boxes, lacking transparency about how they arrive at specific decisions. [3] To tackle this issue, we introduce a methodology that visualizes the contributions of individual pixels to predictions for kernel-based classifiers over Bag of Words features, as well as for multilayered neural networks. By generating heatmaps of these pixel contributions, human experts can intuitively verify the validity of classification decisions and focus further analysis on areas of potential interest. [3] One practical application of layer-wise relevance propagation (LRP) is assessing whether the training data is suitable for a given prediction. [4]
 
-One application of layer-wise relevance propagation is the assessment whether the training data is appropriate for a prediction. [4]
-
+Here we have an image illustrating the relevance:
 ![lrp](https://www.hhi.fraunhofer.de/fileadmin/_processed_/b/9/csm_lrp-algorithm_044c31eb4a.png "LRP") [6]
 
-First, a standard forward pass through the model is performed, with which the network predicts. Then, the model's output is backward propagated layer-by-layer, following the neural pathways involved in the final prediction, by applying specific LRP decomposition rules. The result is a heatmap indicating the contribution of individual input features (e.g., of pixels) to the prediction, which can be computed for any hypothetically possible prediction. [6]
+The process begins with a standard forward pass through the model, allowing the network to make a prediction. Then, the model's output is backward propagated layer by layer, following the neural pathways linked to the final prediction, using specific LRP decomposition rules. This results in a heatmap that indicates the contribution of individual input features (e.g., pixels) to the prediction, which can be computed for any hypothetically possible outcome. [6]
 
-![math 1](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*3jtQO-8LKv4q2iw4Iav3wg.png)
-![math 2](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*AbyhNTXpafHE1429KHgI0A.png)
-
-More about the specific implementation of LRP can be found in ``lrp_explained.md`` in the lrp package.
+For more details about the specific implementation of LRP, please refer to ``lrp_explained.md`` in the lrp package."
 
 ### Structure
+The structure of the project and the purpose of the files are as follows: 
 ```
 XAI-BrainTumor
-├── brain-tumor-dataset
+├── brain-tumor-dataset      // Images of brain tumors and healthy brains
 │   ├── Brain-Tumor
 │   │   ...
 │   └── Healthy
 │       ...
-├── images-documentation
+├── images-documentation     // Images used for the various documentation files
 │   ...
-├── lrp
+├── lrp                      // Package containing the code for the lrp    
 │   ├── __init__.py
 │   ├── lrp.py
 │   ├── lrp_filter.py
-│   └── lrp_layers.py
+│   ├── lrp_layers.py
+│   └── lrp_layers.py        // Documentation explaining the LRP implementation
 ├── saved-net
-│   └── cifar_net.pth
-├── main.ipynm
+│   └── cifar_net.pth        // File with the trained net
+├── main.ipynm               // Main where the CNN is built and the LRP is done
 └── README.md
 ```
 
@@ -83,4 +80,5 @@ The next steps, i.e. building the CNN and running the LRP with analysis and conc
 * [4] [Layer-Wise Relevance Propagation for Deep Neural Network Architectures](https://link.springer.com/chapter/10.1007/978-981-10-0557-2_87)
 * [5] [Magnetic Resonance Imaging (MRI)](https://stanfordhealthcare.org/medical-tests/m/mri.html)
 * [6] [Layer-wise Relevance Propagation](https://www.hhi.fraunhofer.de/en/departments/ai/technologies-and-solutions/layer-wise-relevance-propagation.html)
-* [7] [Overview of Explainable AI and Layer wise relevance propagation (LRP)](https://praveenkumar2909.medium.com/overview-of-explainable-ai-and-layer-wise-relevance-propagation-lrp-cb2d008fec57)
+* [7] [Brain MRI](https://my.clevelandclinic.org/health/diagnostics/22966-brain-mri)
+* [8] [Towards Best Practice in Explaining Neural Network Decisions with LRP](https://ieeexplore.ieee.org/abstract/document/9206975?casa_token=4zn67b_jdRAAAAAA:2C8hjdI6kPFGolboHiq45EB_PbBqyYfaFzoOzrQ_rd0WnmeTphoSqHW8IJnRv6fZZp1Z3ec1OHDrIw)
