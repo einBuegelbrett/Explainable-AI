@@ -58,7 +58,7 @@ XAI-BrainTumor
 │   ├── lrp_layers.py
 │   └── lrp_layers.py        // Documentation explaining the LRP implementation
 ├── saved-net
-│   └── cifar_net.pth        // File with the trained net
+│   └── trained_net.pth        // File with the trained net
 ├── main.ipynm               // Main where the CNN is built and the LRP is done
 └── README.md
 ```
