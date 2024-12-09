@@ -152,12 +152,12 @@
 	
 	\metroset{sectionpage=simple} % Erst hier definiert, damit die Gliederung keine Sectionpage hat
 	\section{Einleitung}
-		\begin{frame}[t]{Einleitung - Gehirntumor} \vspace{10pt}
+		\begin{frame}[t]{Einleitung - Hirntumor} \vspace{5pt}
 			\begin{columns}[T, onlytextwidth]
 				\column{0.45\textwidth}
 				\begin{itemize}
 					\item \textbf{Abnormales} Wachstum von \textbf{Zellen} im Gehirn
-					\item Deutschland \textbf{jährlich} etwa \textbf{8.000 Menschen} neu daran (Robert Koch Instituts Berlin)
+					\item In Deutschland  erkranken \textbf{jährlich} etwa \textbf{8.000 Menschen} neu an einem Hirntumor
 					\item \textbf{Zeitaufwändige} und \textbf{teure} Untersuchungsmethode
 				\end{itemize}
 				
@@ -169,13 +169,10 @@
 		\begin{frame}[t]{Einleitung - Herausforderungen} \vspace*{\fill}
 				\begin{itemize}
 					\item Einsatz von CNNs in der  \textbf{medizinischen Bildsegmentierung}
-					\item Erkennung von Hirntumoren in MRT-Bildern ist schwierig aufgrund der \textbf{komplexen Gehirnstruktur}.
-					\item Schwierigkeit, die Gründe für die Antwort von CNN zu verstehen
+					\item Erkennung von Hirntumoren in MRT-Bildern ist schwierig aufgrund der \textbf{komplexen Gehirnstruktur}
+					\item Schwierigkeit, die \textbf{Gründe} für die Antwort von CNN zu verstehen
 				\end{itemize}
 		\end{frame}
-		
-		%Challenges: 
-		%Detecting brain tumors from MRI images is challenging due to the complex structure of the brain. [1] In this context, convolutional neural networks (CNNs) have proven effective in a wide range of computer vision tasks. Recent advances in semantic segmentation have further enabled their application to medical image segmentation. [2] The aim of this project is to understand the specific strengths and difficulties that artificial intelligence, and CNNs in particular, face in brain tumor detection.
 		
 		\begin{frame}[t]{Einleitung - Forschungsfrage}
 			\vspace*{\fill}
@@ -234,14 +231,17 @@
 			Layer-wise Relevance Propagation (LRP):
 			\begin{itemize}
 				\item Relevanz von jeden Neuron in ein Neuronales Netz
-				\item Foward pass für eine Prediction
-				\item  output is backward propagated layer by layer (Spezielle LRP decomposition rules)
-				\item Heatmap mit den contribution of individual input features (e.g., pixels) to the prediction
+				\item Foward pass (Vorhersage)
+				\item Output wird Schicht für Schicht rückwärts propagiert (Spezielle LRP Regeln)
+				\item Heatmap mit dem Beitrag der einzelnen Input-Features (Pixel) zur Vorhersage
 			\end{itemize}
 		\end{frame}
 		
 		\begin{frame}[t]{LRP - Theorie - Bild} \vspace*{\fill}
 			Hier noch einmal als Bild:
+			\begin{center}
+				\includegraphics[width=0.3\linewidth]{formula\_1}
+			\end{center}
 			\includegraphics[width=\linewidth]{lrp\_procedure}
 		\end{frame}
 		
@@ -291,6 +291,31 @@
 		\end{frame}
 		
 	\section{Beobachtungen}
+	
+		\begin{frame}[t]{Beobachtungen - Gehirntumor}
+			\begin{columns}[T, onlytextwidth]
+				\column{0.20\textwidth}
+				\vspace{90pt}
+				Gehirntumor erkannt
+				
+				\column{0.80\textwidth}
+				\vspace{20pt}
+				\includegraphics[width=\linewidth]{brain\_tumor\_3}
+			\end{columns}
+		\end{frame}
+
+		\begin{frame}[t]{Beobachtungen - Gehirntumor}
+			\begin{columns}[T, onlytextwidth]
+				\column{0.20\textwidth}
+				\vspace{90pt}
+				Gehirntumor erkannt (mit Hirnhaut)
+				
+				\column{0.80\textwidth}
+				\vspace{20pt}
+				\includegraphics[width=\linewidth]{brain\_tumor\_2}
+			\end{columns}
+		\end{frame}
+	
 		\begin{frame}[t]{Beobachtungen - Gehirntumor}			
 			\begin{columns}[T, onlytextwidth]
 				\column{0.20\textwidth}
@@ -304,24 +329,12 @@
 			\end{columns}
 		\end{frame}
 		
-		\begin{frame}[t]{Beobachtungen - Gehirntumor}
-			\begin{columns}[T, onlytextwidth]
-				\column{0.20\textwidth}
-				\vspace{90pt}
-				Gehirntumor erkannt
-				
-				\column{0.80\textwidth}
-					\vspace{20pt}
-					\includegraphics[width=\linewidth]{brain\_tumor\_2}
-			\end{columns}
-		\end{frame}
-		
 		\begin{frame}[t]{Beobachtungen - Gesund} 
 			\begin{columns}[T, onlytextwidth]
 				\column{0.20\textwidth}
 				\vspace{50pt}
 					Bild mit wenigen Details\\
-					$\rightarrow$  Hülle ohne Auffälligkeiten 
+					$\rightarrow$  Hirnhaut, ohne Auffälligkeiten 
 				
 				\column{0.80\textwidth}
 					\vspace{20pt}
@@ -355,26 +368,25 @@
 				Nachteile
 				\begin{itemize}
 					\item Ähnliche Merkmale können unabhängig von der untersuchten Klasse hervorgehoben werden
-					\item Knoten mit irrelevanten Informationen können hervorgehoben werden
+					\item Irrelevante Informationen können hervorgehoben werden
 				\end{itemize}
 			\end{columns}
 		\end{frame}
 		
-		\begin{frame}[t]{Fazit - Reflexion} \vspace{20pt}
+		\begin{frame}[t]{Fazit - Reflexion} \vspace*{\fill}
 			\begin{columns}[T, onlytextwidth]
 				\column{0.45\textwidth}
-				Gut:
+				Erfolge:
 				\begin{itemize}
-					\item LRP erzeugt klarere und gezieltere Heatmaps, die relevante Merkmale in den Eingabedaten hervorheben.
-					\item test2
-					\item test3
+					\item Klare Heatmaps
+					\item ''Mathe'' umsetzen
 				\end{itemize}
 				
 				\column{0.45\textwidth}
-				Schlecht:
+				Schwierigkeiten:
 				\begin{itemize}
 					\item Datensatz
-					\item Viel zu Optimieren: zuerst 70\% dann 95\%
+					\item Optimierung CNN: zuerst 70\% dann 95\%
 				\end{itemize}
 			\end{columns}
 		\end{frame}
